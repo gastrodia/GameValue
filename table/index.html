@@ -1,0 +1,404 @@
+<html ng-app="latte">
+<head>
+	<meta charset="UTF8">
+	<script type="text/javascript" src="../angular.js"></script>
+	<link rel="stylesheet" href="../css/table.css">
+</head>
+<body ng-controller="latte">
+	<div  ng-show="lookShow" class="view window"><div class="head"><button class="close" ng-click="lookShow=false;">x</button><h3>预览</h3></div><div class="body" ><textarea style="width:400px;height:1000px" ng-model="lookText"></textarea></div><div class="footer"></div></div>
+
+	<div id="" ng-show="setView" class="view window"><div class="head"><button class="close" ng-click="setView=false;">x</button><h3>设置</h3></div><div class="body" ><div><label>type:</label><select ng-model="process.type" ng-options="o as o for o in types" ng-init="types=['array','json','keyValue','keyArray'];"></select></div><div><label>start:</label><select ng-model="process.start" ng-options="o as o for o in nums" ng-init="nums=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]" ></select></div><div><label>id:</label><input ng-model="process.id"></input></div><div><label ng-click="backup=process.oneFunc;oneHandleView=true;">one</label></div><div><label ng-click="backup=process.allFunc;allHandleView=true;">all</label></div><div><label>filename:</label><input ng-model="process.filename"></input></div></div><div class="footer"><lable class="button" ng-click="setView=false;">确定</lable></div></div>
+
+	<div  ng-show="oneHandleView" class="view window"><div class="head"><button class="close" ng-click="process.oneFunc=backup;oneHandleView=false;">x</button><h3>单个处理</h3></div><div class="body" ><textarea style="width:400px;height:1000px" ng-model="process.oneFunc"></textarea></div><div class="footer"><lable class="button" ng-click="oneHandleView=false;">确定</lable></div></div>
+
+	<div  ng-show="allHandleView" class="view window"><div class="head"><button class="close" ng-click="process.allFunc=backup;allHandleView=false;">x</button><h3>全部处理</h3></div><div class="body" ><textarea style="width:400px;height:1000px" ng-model="process.allFunc"></textarea></div><div class="footer"><lable class="button" ng-click="allHandleView=false;">确定</lable></div></div>
+
+
+	<div  ng-show="selectUrlView" class="view window"><div class="head"><button class="close" ng-click="selectUrlView=false;">x</button><h3>选择服务器</h3></div><div class="body" ><div><label>ip:</label><select ng-model="selectUrl"  ng-change="updateVersion();" ng-options="o as o for o in urls"></select></div><div><label>版本:</label><select ng-model="selectVersion" ng-init="versions=['v0.0.1','v0.0.2','v0.0.3','v0.0.4','v0.0.5','v0.0.6']" ng-options="o as o for o in versions"></select></div></div><div class="footer"><lable class="button" ng-click="selectUrlNext();selectUrlView=false;">确定</lable></div></div>
+
+		<div  ng-show="createCodeView"  class="view window"><div class="head"><button class="close" ng-click="createCodeView=false;">x</button><h3>生成激活码</h3></div><div class="body" ><div><label>邮件:</label><input ng-model="codeMailId"></input></div><div><label>个数:</label><input ng-model="codeNum"></input></div><div><label>服务器:</label><select ng-model="codeServer" ng-options="o as o for o in servers"></select></div></div><div class="footer"><lable class="button" ng-click="createCode();">确定</lable></div></div>
+
+		<div  ng-show="codesView" class="view window"><div class="head"><button class="close" ng-click="codesView=false;">x</button><h3>激活码</h3></div><div class="body" ><textarea style="width:400px;height:1000px" ng-model="codes" ng-value="codes"></textarea></div><div class="footer"></div></div>
+
+		<div ng-show="registerView" class="view window"><div class="head"><button class="close" ng-click="registerView=false;">x</button><h3>注册账号</h3></div><div class="body"><div><label>账号:</label><input ng-model="createUserLoginName"></input></div><div><label>密码:</label><input ng-model="createUserPassword"></input></div><div><label>服务器:</label><select ng-options="o as o for o in servers" ng-model="useUrl"></select></div></div><div class="footer"><lable class="button" ng-click="createUser();">确定</lable></div></div>
+
+		<div ng-show="confirmView" class="view window" style="z-index: 2;"><div class="head"><button class="close" ng-click="confirmView=false;">x</button><h3>确认</h3></div><div class="body"><div ng-bind="confirmViewMessage"></div></div><div class="footer"><lable class="button" ng-click="confirmFunc();confirmFunc=null;confirmView=false;">确定</lable></div></div>
+
+		<div ng-show="mailView" class="view window"><div class="head"><button class="close" ng-click="mailView=false;">x</button><h3>邮件</h3></div><div class="body"><div><label>gm:</label><input ng-model="mailNickName" ></input></div><div><label>人物:</label><input ng-model="mailPlayer" ></input></div><div><label>金币:</label><input ng-model="mailMoney"></input></div><div><label>水晶:</label><input ng-model="mailGold"></input></div><div><label>物品:</label><input ng-model="mailItemId"></input></div><div><label>个数:</label><input ng-model="mailItemNum"></div><div><label>标题:</label><input ng-model="mailTitle"></input></div><div><label>内容:</label><textarea ng-model="mailContent"></textarea></div><div><label>服务器:</label><select ng-options="o as o for o in urls" ng-model="sendUrl"></select></div></div><div class="footer"><lable class="button" ng-click="sendOneMail();">发送个人</lable><lable class="button" ng-click="sendAllMail();">发送所有人</lable></div></div>
+
+		<div ng-show="systeMmessageView" class="view window"><div class="head"><button class="close" ng-click="systeMmessageView=false;">x</button><h3>公告</h3></div><div class="body"><div><label>内容:</label><textarea ng-model="systemMessage"></textarea></div><div><label>服务器:</label><select ng-options="o as o for o in urls" ng-model="systemMessageUrl"></select></div></div><div class="footer"><lable class="button" ng-click="sendSystemMessage();">确定</lable></div></div>
+
+		<div ng-show="createFileView" class="view window"><div class="head"><button class="close" ng-click="createFileView=false;">x</button><h3>创建文件</h3></div><div class="body"><div><label>名字:</label><input ng-model="createFileName"></input></div></div><div class="footer"><lable class="button" ng-click="createFile();">确定</lable></div></div>
+
+		<div ng-show="selectXlsx" class="view window"><div class="head"><button class="close" ng-click="selectXlsx=false;">x</button><h3>创建文件</h3></div><div class="body"><div><label>表:</label><select ng-options="o as o for o in selectXlsxs" ng-model="selectXlsxData"></select></div></div><div class="footer"><lable class="button" ng-click="selectXlsxEvent();">确定</lable></div></div>
+	<div style="height: 50px; background-color: rgb(34,34,34);">
+		<div style="float: left; width: 200px; height: 100%;"></div>
+		<div style="float: left; width: calc(100% - 900px); height: 100%;"></div>
+		<div style="float: left; width: 700px; height: 100%;">
+			<lable ng-click="save();" class="button">上传</lable>
+			<lable ng-click="look();" class="button">预览</lable>
+			<label ng-click="set();" class="button">设置</label>
+			<label ng-click="uploadServer();" class="button">上传服务器</label>
+			<label ng-click="registerView=true;" class="button">注册</label>
+			<label ng-click="createCodeView=true;" class="button">激活码</label>
+			<label ng-click="mailView=true" class="button">发送邮件</label>
+			<label ng-click="systeMmessageView=true" class="button">修改公告</label>
+		</div>
+	</div>
+	<div style="height: calc(100% - 50px);" >
+		<div style="float: left;width: 200px;height: 100%; overflow-y: auto;background-color:rgb(211,211,211);" ng-rightclick="createMenuRight();" my-right >
+			<div style="width: 100%; height:100%;">
+				<ul class="tree">
+					<li ng-repeat=" t in tree" >
+						<div style="float: left; width: 20px; height:100%" ng-click="treeLeft();" class="left"> < </div>
+						<div style="float: left; width: calc(100% - 40px); height:100%;" ng-bind="t" ng-click="treeClick(t);"></div>
+						<div style="float: left; width: 20px; height: 100%;" ng-click="treeRight(t)" class="right"> > </div>
+					</li>
+				</ul>
+			</div>
+			<div class="view menu" style="display:inline; z-index: 1; left: 132px; top: 73px;" ng-show="createMenuView" id="createMenu">
+				<ul>
+					<li ng-click="createMenuView = false;createFileView = true;">
+						<label>创建文件</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div style="float: left; width: calc(100% - 200px);height: 100%; overflow: auto;" class="table" my-drag  ng-drop="fileDrop($event);">
+			<table contenteditable="true">
+				<thead >
+					<tr >
+						<th ng-repeat="head in heads track by $index" ng-module="heads">
+							<input ng-model="heads[$index]" ></input>
+						</th>
+					<tr>
+				</thead>
+				<tbody >
+					<tr ng-repeat="body in bodys track by $index">
+						<td ng-repeat="b in body track by $index">
+							<input ng-model="body[$index]" ></input>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../latte_lib_xlsx.min.js"></script>
+<script type="text/javascript" src="./data.js"></script>
+<script type="text/javascript">
+	//var url = "http://123.56.110.174:10096/table";
+	var url = "http://192.168.1.25:10096/table"
+	var app = angular.module("latte", []);
+	var fileData;
+	app.controller("latte",["$scope", "$http", function($scope, $http) {
+		var path = [];
+		var root, backup;
+		$scope.servers = ["192.168.1.25:10096","123.56.110.174:10086"];
+		$scope.urls = ["192.168.1.25:8888","123.57.69.133:8887","121.201.8.151:8888","121.201.8.151:8788"];
+		$http({
+			method:"GET",
+			url: url+"/all"
+		}).success(function(data) {
+			console.log(data);
+			var now = root = data.data;
+			var location = function() {
+				now = root;
+				path.forEach(function(p) {
+					if(now[p].files) {
+						now = now[p].files;
+					}
+				});
+				$scope.tree = Object.keys(now);
+			}
+			$scope.treeLeft=function() {
+				path.pop();
+				location();
+			}
+
+			$scope.treeRight = $scope.treeClick = function(t) {
+				var data = now[t];
+				if(data.type == "file") {
+					$http({
+						method:"GET",
+						url: url + "/getFileData",
+	 					params: { path: "/"+path.join("/")+"/"+t}
+					}).success(function(data) {
+						$scope.heads = data.head;
+						$scope.bodys = data.body;
+						$scope.process = data.process;
+						data.process.start = data.process.start-0;
+						fileData = {
+							head: $scope.heads,
+							body: $scope.bodys,
+							process: $scope.process
+						};
+						fileData.path = "/"+path.join("/")+"/"+t;
+					});
+				}else if(data.type == "dir"){
+					now = data.files;
+					path.push(t);
+					$scope.tree = Object.keys(now);
+				}
+			}
+			location();
+		});
+		$scope.flushFileData = function() {
+			fileData.head = $scope.heads;
+			fileData.body = $scope.bodys;
+			fileData.process = $scope.process;
+		}
+		$scope.save = function() {
+			if(fileData) {
+				$scope.flushFileData();
+				latte.require("latte_lib").xhr.post(url+"/updateData", {
+					filename: fileData.path,
+					fileData: JSON.stringify(fileData)
+				}, { headers: {
+					"Content-type": "application/x-www-form-urlencoded"
+				}}, function(data) {
+					console.log("上传成功",data);
+				})
+			}
+		}
+		$scope.look = function() {
+			if(fileData) {
+				$scope.flushFileData();
+				$scope.lookShow = true;
+				$scope.lookText = latte.require("latte_lib").format.jsonFormat(toJSON());
+			}
+		}
+		$scope.set = function() {
+			if(fileData) {
+				$scope.flushFileData();
+				$scope.setView = true;
+			}
+		}
+		$scope.uploadServer = function() {
+			if(fileData) {
+				$scope.flushFileData();
+				$scope.selectUrlView = true;
+				$scope.selectUrlNext = function() {
+					$scope.selectUrlNext = null;
+					if($scope.selectUrl && $scope.selectUrl != "") {
+						var opts = {};
+						opts[$scope.selectVersion+"/"+$scope.process.filename] = latte.require("latte_lib").format.jsonFormat(toJSON());
+						latte.require("latte_lib").xhr.post("http://"+$scope.selectUrl+"/update/data",opts, {
+							headers: {
+								"Content-type":"application/x-www-form-urlencoded"
+							}
+						}, function(data) {
+							console.log(data);
+						});
+					}
+				}
+			}
+		}
+		$scope.updateVersion = function() {
+			if($scope.selectUrl) {
+				$http({
+					method:"GET",
+					url: "http://"+$scope.selectUrl+"/version"
+				}).success(function(data) {
+					$scope.selectVersion = data;
+				});
+			}
+		}
+		$scope.codesView = false;
+		$scope.createCode = function() {
+			$http({
+				method:"GET",
+				url: "http://"+$scope.codeServer+"/createCode",
+				params: {
+					mailId: $scope.codeMailId,
+					num: $scope.codeNum
+				}
+			}).success(function(data) {
+				$scope.codes = data.data.join("\n");
+				$scope.codesView = true;
+			});
+			$scope.createCodeView = false;
+
+		}
+		$scope.createUser = function() {
+			$http({
+				method: "GET",
+				url: "http://"+$scope.useUrl+"/register",
+				params:{
+					loginName: $scope.createUserLoginName,
+					password: $scope.createUserPassword,
+					type:1
+				}
+			}).success(function(data) {
+
+				if(data.errorCode) {
+					alert("注册失败");
+				}else{
+					alert("注册成功");
+				}
+			});
+			$scope.registerView = false;
+		}
+
+		$scope.createFile = function() {
+			$scope.createFileView = false;
+			fileData = {
+				head:[""],
+				body: [],
+				process: {},
+				path: "/"+path.join("/")+"/"+$scope.createFileName
+			};
+			$scope.tree.push($scope.createFileName);
+			now = root;
+			path.forEach(function(p) {
+				if(now[p].files) {
+					now = now[p].files;
+				}
+			});
+			now[$scope.createFileName] = {type: "file"}
+			$scope.heads = fileData.head;
+			$scope.bodys = fileData.body;
+			$scope.process = fileData.process;
+
+		}
+		$scope.createMenuRight = function() {
+			var createMenu = document.getElementById("createMenu");
+			$scope.createMenuView = true;
+        	createMenu.style.left = event.x;
+        	createMenu.style.top = event.y;
+		}
+
+		$scope.fileDrop = function(event) {
+			var files = event.dataTransfer.files;
+			var file = files[0];
+			var reader = new FileReader();
+			reader.readAsArrayBuffer(file);
+			reader.onload = function() {
+				var text = reader.result;
+				var Buffer = latte.require("latte_lib").buffer;
+				var buffer = new Buffer(text);
+				latte_xlsx = latte.require("latte_lib/xlsx")
+				latte_xlsx.read(buffer, function(error, xlsx) {
+					console.log(xlsx);
+					$scope.selectXlsxs = Object.keys(xlsx.works);
+					$scope.$apply(function() {
+						$scope.selectXlsx = true;
+					});
+					$scope.selectXlsxEvent = function(data) {
+						var data = xlsx.works[$scope.selectXlsxData];
+						$scope.bodys = data;
+						fileData.body = $scope.bodys;
+						var max = 0;
+						fileData.body.forEach(function(line) {
+							if(max < line.length) {
+								max = line.length;
+							}
+						});
+						if($scope.heads.length < max) {
+							for(var i = $scope.heads.length ; i < max; i++) {
+								$scope.heads[i] = "";
+							}
+						}
+						$scope.selectXlsx = false;
+						$scope.selectXlsxData = "";
+						//$scope.selectXlsxData = null;
+					}
+				});
+
+			}
+
+			reader.onerror = function(err) {
+				console.log(err);
+			}
+		}
+		var getMail = function() {
+			var mail = {
+				content: $scope.mailContent,
+				items: [],
+				title: $scope.mailTitle,
+				nickName: $scope.mailNickName
+			};
+			if($scope.mailMoney - 0) { mail.items.push({ itemId:"D130102" , itemNum: $scope.mailMoney - 0}); }
+			if($scope.mailGold - 0) { mail.items.push({ itemId: "D130103", itemNum: $scope.mailGold - 0}); }
+			if($scope.mailItemId ) { mail.items.push({itemId: $scope.mailItemId, itemNum: $scope.mailItemNum - 0 || 1});}
+			return mail;
+		}
+		$scope.sendOneMail = function() {
+			latte.require("latte_lib").xhr.get("http://"+$scope.sendUrl+"/gm/sendMail", {
+				playerName: $scope.mailPlayer,
+				mail: getMail()
+			}, function(data) {
+				console.log(data);
+				$scope.mailView=false;
+				$scope.$apply();
+			});
+		}
+		$scope.sendAllMail = function() {
+			$scope.confirmViewMessage='你确定是发送给全部人';
+			$scope.confirmView=1;
+			$scope.confirmFunc=function(){
+				latte.require("latte_lib").xhr.get("http://"+$scope.sendUrl+"/gm/allSendMail", {
+					playerName: $scope.mailPlayer,
+					mail: getMail()
+				}, function(data) {
+					console.log(data);
+					$scope.mailView=false;
+					$scope.$apply();
+				});
+			};
+			/**/
+		}
+		$scope.sendSystemMessage = function() {
+			latte.require("latte_lib").xhr.get("http://"+$scope.systemMessageUrl+"/updateSystemMessage", {
+				message: $scope.systemMessage
+			}, function(data) {
+				console.log(data);
+				$scope.systeMmessageView=false;
+			});
+		}
+	}]);
+
+
+	app.directive('myRight', function($parse) {
+	    return function(scope, element, attrs) {
+	        var fn = $parse(attrs.ngRightclick);
+	        element.bind('contextmenu', function(event) {
+	            scope.$apply(function() {
+	                event.preventDefault();
+	                fn(scope, {$event:event});
+	            });
+	        });
+	    };
+	});
+
+	app.directive("myDrag", function($parse) {
+		return function(scope, element, attrs) {
+
+			element.bind("dragenter", function(event) {
+				var fn = $parse(attrs.ngDragenter);
+				scope.$apply(function() {
+					event.preventDefault();
+					fn(scope, {$event: event});
+				});
+			});
+			element.bind("dragover", function(event) {
+				var fn = $parse(attrs.ngDragover);
+				scope.$apply(function() {
+					event.preventDefault();
+					fn(scope, {$event: event});
+				});
+			});
+			element.bind("drop", function(event) {
+				var fn = $parse(attrs.ngDrop);
+				//var filesFn = $parse(attrs.ngFiles);
+				scope.$apply(function() {
+					event.stopPropagation();
+					event.preventDefault();
+					fn(scope, {$event: event});
+				});
+			});
+		}
+	});
+
+</script>
+</html>
