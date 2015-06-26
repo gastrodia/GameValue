@@ -1,0 +1,27 @@
+{
+  "name": "world-define",
+  "version": "1.0.0",
+  "description": "Game world define tools。",
+  "main": "config.js",
+  "dependencies": {
+    "gulp-watch": "^4.2.4",
+    "lodash": "^3.9.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-less-sourcemap": "^1.4.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gastrodia/WorldDefine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gastrodia/WorldDefine/issues"
+  },
+  "homepage": "https://github.com/gastrodia/WorldDefine#readme"
+}

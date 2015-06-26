@@ -2791,7 +2791,7 @@ var Reflect;
         if (typeof O !== "function" || O === functionPrototype) {
             return proto;
         }
-        // TypeScript doesn't set __proto__ in ES5, as it's non-standard. 
+        // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
         // Try to determine the superclass constructor. Compatible implementations
         // must either set __proto__ on a subclass constructor to the superclass constructor,
         // or ensure each class has a valid `constructor` property on its prototype that
@@ -27995,4 +27995,3 @@ System.register("angular2/angular2", ["angular2/change_detection", "angular2/cor
 });
 
 //# sourceMappingURLDisabled=angular2.dev.js.map
-System.config({"paths":{"*":"*.js","angular2/*":"angular2/*"}});
