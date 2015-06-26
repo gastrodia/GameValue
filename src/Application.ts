@@ -10,11 +10,7 @@ import keeper = require('./keeper');
 })
 
 @View({
-  template:  `
-    <!-- The router-outlet displays the template for the current component based on the URL -->
-    <router-outlet></router-outlet>
-    <table></table>
-  `,
+  templateUrl: 'src/template/application.html',
   directives: [Table]
 })
 

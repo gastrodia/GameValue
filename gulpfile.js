@@ -3,11 +3,12 @@ var watch = require('gulp-watch');
 var less = require('gulp-less-sourcemap');
 
 gulp.task('build:less', function () {
-  watch('./less/**/*.less', function () {
-    gulp.src('./less/**/*.less')
+  var less_files = './src/less/**/*.less';
+  watch(less_files, function () {
+    gulp.src(less_files)
       .pipe(less({
           sourceMap: {
-              sourceMapRootpath: '../../less' // Optional absolute or relative path to your LESS files
+              sourceMapRootpath: '../../src/less' // Optional absolute or relative path to your LESS files
           }
       }))
       .pipe(gulp.dest('./dist/css'));

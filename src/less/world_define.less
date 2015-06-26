@@ -1,0 +1,46 @@
+@leftWidth:200px;
+
+html, body{
+  height:100%;
+  margin: 0;
+  padding: 0;
+}
+.application{
+  height:100%;
+    .left{
+      float: left;
+      width: @leftWidth;
+      .mind-map-panel{
+        height:100%;
+        width: inherit;
+        background: lightgreen;
+      }
+    }
+
+    .right{
+      width: inherit;
+      height:100%;
+      background: lightblue;
+      .top{
+        height: 70%;
+        .create-panel{
+          width: 50%;
+          height:100%;
+          float:left;
+          background: lightyellow;
+        }
+
+        .define-panel{
+
+        }
+      }
+
+      .bottom{
+        height: 30%;
+        background: lightpink;
+        .table-panel{
+
+        }
+      }
+    }
+}

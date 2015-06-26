@@ -7,3 +7,4 @@ import core = require('angular2/core');
 export function getParentFromViewContainer(viewContainer:core.ViewContainerRef):any{
   return viewContainer.element.parentView._view.context;
 }
+ 

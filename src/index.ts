@@ -8,5 +8,5 @@ import Application = require('./Application');
 export function main() {
   bootstrap(Application);
 }
-
+ 
 main();

@@ -9,7 +9,7 @@ import helper = require('./helper');
   selector: 'table'
 })
 
-class TableComponent{
+class TableComponent{ 
 
   parent:Application;
 
