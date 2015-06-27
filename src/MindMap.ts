@@ -7,11 +7,10 @@ import Application = require('./Application');
 })
 
 class MindMap{
-  parent:Application;
+  parent:Application; 
   constructor(viewContrainer:core.ViewContainerRef){
     this.parent = helper.getParentFromViewContainer(viewContrainer);
   }
 }
 
 export = MindMap;
- 

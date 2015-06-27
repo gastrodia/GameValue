@@ -9,7 +9,10 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-less-sourcemap": "^1.4.2"
+    "gulp-less": "^3.0.3",
+    "gulp-less-import": "^1.0.0",
+    "gulp-less-sourcemap": "^1.4.2",
+    "gulp-sourcemaps": "^1.5.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

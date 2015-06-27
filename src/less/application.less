@@ -1,16 +1,22 @@
-@leftWidth:200px;
+@leftWidth:20%;
+@rightWidth:80%;
 
 html, body{
   height:100%;
   margin: 0;
   padding: 0;
-}
+} 
 .application{
-  height:100%;
+  position: fixed;
+  top:0px;
+  left:0px;
     .left{
-      float: left;
+      position: fixed;
+      top:0px;
       width: @leftWidth;
       .mind-map-panel{
+        position: fixed;
+        top:0px;
         height:100%;
         width: inherit;
         background: lightgreen;
@@ -18,8 +24,11 @@ html, body{
     }
 
     .right{
-      width: inherit;
+      width: @rightWidth;
       height:100%;
+      top:0px;
+      left:@leftWidth;
+      position: fixed;
       background: lightblue;
       .top{
         height: 70%;
