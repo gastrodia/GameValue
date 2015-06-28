@@ -1,13 +1,13 @@
 import {ElementRef, Component, Directive, View, Injectable,NgFor} from 'angular2/angular2';
 import core = require('angular2/core');
-import helper = require('./helper');
-import Application = require('./Application');
+import helper = require('../../helper');
+import Application = require('../application/Application');
 @Component({
   selector: 'outlet'
 })
 
 @View({
-  templateUrl:'src/template/outlet.html',
+  templateUrl:helper.getTemplateUrlByComponentName('outlet'),
   directives:[NgFor]
 })
 
