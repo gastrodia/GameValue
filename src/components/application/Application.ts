@@ -23,15 +23,7 @@ class Application {
 
     this.world = {
         outlet:{
-          npc:{
-            id:{},
-            name:{},
-            color:{}
-          },
-          buff:{
-            key:{},
-            effect:{}
-          }
+          world:{}
         },
 
     }
