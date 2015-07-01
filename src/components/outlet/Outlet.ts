@@ -1,9 +1,11 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts"/>
 
-import {ElementRef, Component, Directive, View, Injectable,NgFor} from 'angular2/angular2';
+import {ElementRef, Component, Directive, View, Injectable,NgFor,onChange} from 'angular2/angular2';
 import core = require('angular2/core');
 import helper = require('../../helper');
 import Application = require('../application/Application');
+
+
 @Component({
   selector: 'outlet'
 })
@@ -30,11 +32,19 @@ class Outlet{
     this.parent = helper.getParentFromViewContainer(viewContrainer);
     this.outlet = this.parent.world.outlet;
 
-    this.redrawTree();
+
+    $.get('/api/outlet',(outlet)=>{
+      this.outlet = outlet;
+      this.redrawTree();
+    });
   }
 
   addItem(){
     console.log('add item');
+  }
+
+  handleChange(outlet){
+    console.log('change',outlet);
   }
 
   getOutletObByAccessKey(accessKey){
@@ -63,8 +73,24 @@ class Outlet{
     }
   }
 
+  update(){
+    var outlet = this.outlet;
+    console.log(outlet);
+    $.ajax({
+  		type: 'POST',
+  		data: JSON.stringify(outlet),
+      contentType: 'application/json',
+      url: '/api/outlet',
+      success: function(data) {
+          console.log('success update');
+          console.log(JSON.stringify(data));
+      }
+    });
+
+    this.redrawTree();
+  }
+
   redrawTree(){
-    console.log(this.outlet);
     var $target:JQuery = this.$elem.find('#outletList');
     $target.html('');
     this.drawTree($target,this.outlet);
@@ -115,7 +141,7 @@ class Outlet{
                   $tmpLi.remove();
                   var ob = this.getOutletObByAccessKey(newAccessKey);
                   ob[inputVal] = {};
-                  this.redrawTree();
+                  this.update();
                 }else{
                   alert('不可以包含字符"."');
                 }
@@ -131,7 +157,7 @@ class Outlet{
             var pob = this.getOutletPObByAccessKey(newAccessKey);
             delete pob[key];
             e.stopPropagation();
-            this.redrawTree();
+            this.update();
           }
 
         });

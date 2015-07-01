@@ -1,6 +1,9 @@
+/// <reference path="../../../typings/jquery/jquery.d.ts"/>
+
 import angular = require('angular2/angular2');
 import {ElementRef, Component, Directive, View, Injectable, Renderer} from 'angular2/angular2';
 import Outlet = require('../outlet/Outlet');
+import DataView = require('../data-view/DataView');
 import helper = require('../../helper');
 
 @Component({
@@ -9,7 +12,7 @@ import helper = require('../../helper');
 
 @View({
   templateUrl: helper.getTemplateUrlByComponentName('application'),
-  directives: [Outlet]
+  directives: [Outlet,DataView]
 })
 
 
@@ -19,14 +22,9 @@ class Application {
   public world:any = {};
 
   constructor(){
-
-
-    this.world = {
-        outlet:{
-          world:{}
-        },
-
-    }
+    $.get('/api/outlet',(outlet)=>{
+      this.world.outlet = outlet;
+    });
   }
 
 }

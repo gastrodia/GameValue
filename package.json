@@ -4,12 +4,17 @@
   "description": "Game world define tools。",
   "main": "config.js",
   "dependencies": {
-    "gulp-watch": "^4.2.4",
-    "lodash": "^3.9.3"
+    "body-parser": "^1.13.1",
+    "express": "^4.13.0",
+    "multer": "^0.1.8",
+    "nedb": "^1.1.2",
+    "typescript-require": "^0.2.9"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
+    "gulp-watch": "^4.2.4",
+    "lodash": "^3.9.3",
     "gulp-less-import": "^1.0.0",
     "gulp-less-sourcemap": "^1.4.2",
     "gulp-sourcemaps": "^1.5.2"
