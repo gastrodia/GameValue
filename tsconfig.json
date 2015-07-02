@@ -359,6 +359,7 @@
         "./server/src/main.ts",
         "./server/src/router.ts",
         "./server/src/socket.ts",
+        "./server/src/world.ts",
         "./server/typings/express/express.d.ts",
         "./server/typings/mime/mime.d.ts",
         "./server/typings/nedb/nedb.d.ts",
