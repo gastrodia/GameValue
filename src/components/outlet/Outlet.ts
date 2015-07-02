@@ -1,10 +1,11 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts"/>
-
+/// <reference path="../../../typings/socket.io-client/socket.io-client.d.ts"/>
 import {ElementRef, Component, Directive, View, Injectable,NgFor,onChange} from 'angular2/angular2';
 import core = require('angular2/core');
 import helper = require('../../helper');
 import Application = require('../application/Application');
 
+var socket = io.connect(location.host);
 
 @Component({
   selector: 'outlet'
@@ -74,19 +75,7 @@ class Outlet{
   }
 
   update(){
-    var outlet = this.outlet;
-    console.log(outlet);
-    $.ajax({
-  		type: 'POST',
-  		data: JSON.stringify(outlet),
-      contentType: 'application/json',
-      url: '/api/outlet',
-      success: function(data) {
-          console.log('success update');
-          console.log(JSON.stringify(data));
-      }
-    });
-
+    socket.emit('outlet.update', this.outlet);
     this.redrawTree();
   }
 

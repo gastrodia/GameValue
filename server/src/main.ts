@@ -3,6 +3,7 @@ import express = require('express');
 import router = require('./router');
 import path = require('path');
 var app = express();
+var server = require('http').Server(app);
 var bodyParser = require('body-parser');
 var multer = require('multer');
 
@@ -19,8 +20,13 @@ app.use('/',staticRouter);
 
 app.use('/api',router);
 
+
+var io = require('socket.io')(server);
+var socket = require('./socket');
+io.on('connection', socket);
+
 var port:number = 8010;
 
-app.listen(port,function(){
+server.listen(port,function(){
   console.log('server is listening on port ' + port);
 });

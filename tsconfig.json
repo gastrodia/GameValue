@@ -358,11 +358,16 @@
         "./server/src/db.ts",
         "./server/src/main.ts",
         "./server/src/router.ts",
+        "./server/src/socket.ts",
         "./server/typings/express/express.d.ts",
         "./server/typings/mime/mime.d.ts",
         "./server/typings/nedb/nedb.d.ts",
         "./server/typings/node/node.d.ts",
         "./server/typings/serve-static/serve-static.d.ts",
+        "./server/typings/socket.io/legacy/socket.io-0.9-tests.ts",
+        "./server/typings/socket.io/legacy/socket.io-0.9.d.ts",
+        "./server/typings/socket.io/socket.io-tests.ts",
+        "./server/typings/socket.io/socket.io.d.ts",
         "./src/components/application/Application.ts",
         "./src/components/data-view/DataView.ts",
         "./src/components/mindmap/Mindmap.ts",
@@ -394,6 +399,11 @@
         "./typings/rx/rx.testing.d.ts",
         "./typings/rx/rx.time-lite.d.ts",
         "./typings/rx/rx.time.d.ts",
-        "./typings/rx/rx.virtualtime.d.ts"
+        "./typings/rx/rx.virtualtime.d.ts",
+        "./typings/socket.io-client/legacy/socket.io-client-0.9-commonjs-tests.ts",
+        "./typings/socket.io-client/legacy/socket.io-client-0.9-tests.ts",
+        "./typings/socket.io-client/legacy/socket.io-client-0.9.d.ts",
+        "./typings/socket.io-client/socket.io-client-tests.ts",
+        "./typings/socket.io-client/socket.io-client.d.ts"
     ]
 }

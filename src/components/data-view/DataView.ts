@@ -1,8 +1,16 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts"/>
-
+/// <reference path="../../../typings/socket.io-client/socket.io-client.d.ts"/>
 import {Component, Directive, View} from 'angular2/angular2';
 import core = require('angular2/core');
 import helper = require('../../helper');
+
+
+var socket = io.connect(location.host);
+socket.on('outlet.update', function (data) {
+  console.log('outlet.update');
+  console.log(data);
+});
+
 
 @Component({
   selector: 'data-view'
