@@ -99,8 +99,8 @@ class Outlet{
           newAccessKey = key;
         }
 
-        var $addBtn:JQuery = $('<span class="add-item-btn">+</span>');
-        var $deleteBtn:JQuery = $('<span class="delete-self-btn">X</span>');
+        var $addBtn:JQuery = $('<span class="add-item-btn"><img src="public/images/add-btn-icon.png" alt=""></span>');
+        var $deleteBtn:JQuery = $('<span class="delete-self-btn"><img src="public/images/del-btn-icon.png" alt=""></span>');
         var $li:JQuery = $(`<li>${key}</li>`);
 
 
