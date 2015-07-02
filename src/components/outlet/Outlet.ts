@@ -26,6 +26,8 @@ class Outlet{
   $elem:JQuery;
   outlet:any;
 
+  selectedLi:any;
+
   constructor(viewContrainer:core.ViewContainerRef){
     this.ngElement =viewContrainer.element;
     var domElement:HTMLElement = (<any>this.ngElement).domElement;
@@ -46,32 +48,6 @@ class Outlet{
 
   handleChange(outlet){
     console.log('change',outlet);
-  }
-
-  getOutletObByAccessKey(accessKey){
-    if(accessKey){
-      var keys = accessKey.split('.');
-      var ob = this.outlet;
-      for(var i =0;i<keys.length;i++){
-        ob = ob[keys[i]];
-      }
-      return ob;
-    }else{
-      return this.outlet;
-    }
-  }
-
-  getOutletPObByAccessKey(accessKey){
-    if(accessKey){
-      var keys = accessKey.split('.');
-      var ob = this.outlet;
-      for(var i =1;i<keys.length;i++){
-        ob = ob[keys[i-1]];
-      }
-      return ob;
-    }else{
-      return this.outlet;
-    }
   }
 
   update(){
@@ -101,7 +77,7 @@ class Outlet{
 
         var $addBtn:JQuery = $('<span class="add-item-btn"><img src="public/images/add-btn-icon.png" alt=""></span>');
         var $deleteBtn:JQuery = $('<span class="delete-self-btn"><img src="public/images/del-btn-icon.png" alt=""></span>');
-        var $li:JQuery = $(`<li>${key}</li>`);
+        var $li:JQuery = $(`<li accessKey=${newAccessKey}>${key}</li>`);
 
 
 
@@ -128,7 +104,7 @@ class Outlet{
                 if(inputVal.indexOf('.') == -1){
                   $input.remove();
                   $tmpLi.remove();
-                  var ob = this.getOutletObByAccessKey(newAccessKey);
+                  var ob = helper.getOutletObByAccessKey(this.outlet,newAccessKey);
                   ob[inputVal] = {};
                   this.update();
                 }else{
@@ -143,7 +119,7 @@ class Outlet{
           if(!dataAccessKey && key == "world"){
             alert('无法删除根节点');
           }else{
-            var pob = this.getOutletPObByAccessKey(newAccessKey);
+            var pob = helper.getOutletPObByAccessKey(this.outlet,newAccessKey);
             delete pob[key];
             e.stopPropagation();
             this.update();
@@ -153,8 +129,18 @@ class Outlet{
         $li.append($addBtn);
         $li.append($deleteBtn);
         $ul.append($li);
-        $li.click(function(){
-          console.log(key,'li click');
+
+
+        $li.click((e:Event) =>{
+          if(this.selectedLi){
+            this.selectedLi.css('background','');
+          }
+          $li.css('background','#16181B');
+          this.selectedLi = $li;
+          socket.emit('outlet.select',{
+            accessKey:$li.attr('accessKey')
+          })
+          e.stopPropagation();
         })
 
         if(Object.keys(obj[key]).length > 0){

@@ -1,13 +1,21 @@
 var world:any = {
   outlet:{
     world:{
-      a:{},
+      npc:{
+        name:{},
+        color:{},
+        scene:{},
+        initShow:{}
+      },
       b:{}
     }
 
   },
-  table :{//outlet中设置为__table的部分将作为data的key
-
+  data:{
+    "world.npc": [
+      ['小明','red','scene_01','12'],
+      ['小红','gray','scene_02','13']
+    ]
   }
 };
 export = world;

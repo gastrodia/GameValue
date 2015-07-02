@@ -11,3 +11,30 @@ export function getParentFromViewContainer(viewContainer:core.ViewContainerRef):
 export function getTemplateUrlByComponentName(componentName){
   return 'src/components/' + componentName + '/' + componentName  + '.html';
 }
+
+export function  getOutletObByAccessKey(outlet,accessKey){
+    if(accessKey){
+      var keys = accessKey.split('.');
+      var ob = outlet;
+      for(var i =0;i<keys.length;i++){
+        ob = ob[keys[i]];
+      }
+      return ob;
+    }else{
+      return outlet;
+    }
+  }
+
+
+export function getOutletPObByAccessKey(outlet,accessKey){
+  if(accessKey){
+    var keys = accessKey.split('.');
+    var ob = outlet;
+    for(var i =1;i<keys.length;i++){
+      ob = ob[keys[i-1]];
+    }
+    return ob;
+  }else{
+    return outlet;
+  }
+}

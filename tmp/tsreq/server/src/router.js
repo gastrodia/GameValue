@@ -5,11 +5,7 @@ var router = express.Router();
 router.get('/outlet', function (req, res) {
     res.json(world.outlet);
 });
-router.post('/outlet', function (req, res) {
-    world.outlet = req.body;
-    res.json({ ok: true });
-});
-router.get('/face', function (req, res) {
-    res.json(['face']);
+router.get('/data', function (req, res) {
+    res.json(world.data);
 });
 module.exports = router;

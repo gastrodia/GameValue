@@ -1,10 +1,20 @@
 var world = {
     outlet: {
         world: {
-            a: {},
+            npc: {
+                name: {},
+                color: {},
+                scene: {},
+                initShow: {}
+            },
             b: {}
         }
     },
-    table: {}
+    data: {
+        "world.npc": [
+            ['小明', 'red', 'scene_01', '12'],
+            ['小红', 'gray', 'scene_02', '13']
+        ]
+    }
 };
 module.exports = world;

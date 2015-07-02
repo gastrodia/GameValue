@@ -6,10 +6,6 @@ import helper = require('../../helper');
 
 
 var socket = io.connect(location.host);
-socket.on('outlet.update', function (data) {
-  console.log('outlet.update');
-  console.log(data);
-});
 
 var selected:JQuery;
 
@@ -30,8 +26,12 @@ class DataView{
   ngElement;
   $elem:JQuery;
 
+  outlet:any;
+  worldData:any;
+
   titleArray:Array<any>;
   data:Array<Array<any>>;
+  accessKey:string = "world";
 
   constructor(viewContainer: core.ViewContainerRef) {
     //this.parent = helper.getParentFromViewContainer(viewContainer);
@@ -39,16 +39,38 @@ class DataView{
     var domElement:HTMLElement = (<any>this.ngElement).domElement;
     this.$elem = $(domElement);
 
-    this.titleArray = ['name','color','scene','initShow'];
+    $.get('/api/outlet',(outlet)=>{
+      this.outlet = outlet;
+      var ob = helper.getOutletObByAccessKey(this.outlet,this.accessKey);
+      this.titleArray = Object.keys(ob);
+      $.get('/api/data',(worldData)=>{
+        this.worldData = worldData;
+        this.data = this.worldData[this.accessKey];
+        this.redrawTable();
+      });
+    });
 
-    this.data = [
-      ['小明','red','scene_01','12'],
-      ['小红','gray','scene_02','13']
-    ]
+    socket.on('data.outletUpdate',(outlet)=>{
+      this.outlet = outlet;
+      var ob = helper.getOutletObByAccessKey(this.outlet,this.accessKey);
+      this.titleArray = Object.keys(ob);
+      this.data = this.worldData[this.accessKey];
+      this.redrawTable();
+    });
 
-    this.drawTable();
+    socket.on('data.turnView',(data)=>{
+      this.accessKey = data.accessKey;
+      this.$elem.find('#accessKey').text(this.accessKey);
+      var ob = helper.getOutletObByAccessKey(this.outlet,this.accessKey);
+      this.titleArray = Object.keys(ob);
+      this.data = this.worldData[this.accessKey];
+      this.redrawTable();
+    })
   }
 
+  update(){
+    socket.emit('data.update', this.worldData);
+  }
 
 
   editable_cell(warp:string,val:any):JQuery{
@@ -71,13 +93,20 @@ class DataView{
 
   editable_th(i):JQuery{
     var th = this.editable_cell('<th>',this.titleArray[i]);
+    th.keyup(()=>{
+      this.titleArray[i] = th.text();
+      console.log(this.titleArray);
+      this.update();
+    })
     return th;
   }
 
   editable_td(i,j):JQuery{
     var td = this.editable_cell('<td>',this.data[i][j]);
     td.keyup(()=>{
-      console.log(td.text());
+      this.data[i][j] = td.text();
+      console.log(this.data);
+      this.update();
     })
     return td;
   }
@@ -87,6 +116,7 @@ class DataView{
     for(var i=0;i<this.data.length;i++){
       this.data[i].push('');
     }
+
     this.redrawTable();
   }
 
@@ -96,6 +126,7 @@ class DataView{
       newRow.push('');
     }
     this.data.push(newRow);
+
     this.redrawTable();
   }
 
@@ -110,6 +141,7 @@ class DataView{
     var table = $('<table>');
     var title = $('<tr>');
 
+    this.data = this.data || [];
 
     for(var i=0;i<this.titleArray.length;i++){
       var th = this.editable_th(i);
