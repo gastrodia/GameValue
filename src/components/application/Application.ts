@@ -2,7 +2,7 @@
 
 import angular = require('angular2/angular2');
 import {ElementRef, Component, Directive, View, Injectable, Renderer} from 'angular2/angular2';
-import Outlet = require('../outlet/Outlet');
+import Folder = require('../folder/Folder');
 import DataView = require('../data-view/DataView');
 import helper = require('../../helper');
 
@@ -12,7 +12,7 @@ import helper = require('../../helper');
 
 @View({
   templateUrl: helper.getTemplateUrlByComponentName('application'),
-  directives: [Outlet,DataView]
+  directives: [Folder,DataView]
 })
 
 

@@ -8,18 +8,17 @@ import Application = require('../application/Application');
 var socket = io.connect(location.host);
 
 @Component({
-  selector: 'outlet'
+  selector: 'folder'
 })
 
 @View({
-  templateUrl:helper.getTemplateUrlByComponentName('outlet'),
+  templateUrl:helper.getTemplateUrlByComponentName('folder'),
   directives:[NgFor]
 })
 
 
 
-class Outlet{
-
+class Folder{
 
   ngElement:ElementRef;
   parent:Application;
@@ -76,7 +75,7 @@ class Outlet{
         }
 
         var $addBtn:JQuery = $('<span class="add-item-btn"><img src="public/images/add-btn-icon.png" alt=""></span>');
-        var $deleteBtn:JQuery = $('<span class="delete-self-btn"><img src="public/images/del-btn-icon.png" alt=""></span>');
+        var $uploadBtn:JQuery = $('<span class="upload-table-btn"><img src="public/images/upload_icon.png" alt=""></span>');
         var $li:JQuery = $(`<li accessKey=${newAccessKey}>${key}</li>`);
 
 
@@ -114,19 +113,19 @@ class Outlet{
           })
           e.stopPropagation();
         });
-        $deleteBtn.click((e:Event)=>{
-          if(!dataAccessKey && key == "world"){
-            alert('无法删除根节点');
-          }else{
-            var pob = helper.getOutletPObByAccessKey(this.outlet,newAccessKey);
-            delete pob[key];
-            e.stopPropagation();
-            this.update();
-          }
-
+        $uploadBtn.click((e:Event)=>{
+          // if(!dataAccessKey && key == "world"){
+          //   alert('无法删除根节点');
+          // }else{
+          //   var pob = helper.getOutletPObByAccessKey(this.outlet,newAccessKey);
+          //   delete pob[key];
+          //   e.stopPropagation();
+          //   this.update();
+          // }
+          console.log('upload')
         });
         $li.append($addBtn);
-        $li.append($deleteBtn);
+        $li.append($uploadBtn);
         $ul.append($li);
 
 
@@ -155,4 +154,4 @@ class Outlet{
 
 }
 
-export = Outlet;
+export = Folder;

@@ -1,4 +1,4 @@
-
+/// <reference path="./interfaces.d.ts"/>
 import {bootstrap} from 'angular2/angular2';
 import {bind} from 'angular2/di';
 
@@ -10,3 +10,8 @@ export function main() {
 }
 
 main();
+
+import CVSImporter = require('./Importer/CVSImporter');
+import ExeclImporter = require('./Importer/ExcelImporter');
+var myImporter = new ExeclImporter(new CVSImporter());
+myImporter.import();
