@@ -372,6 +372,8 @@
         "./src/Exporter/ExcelExporter.ts",
         "./src/Importer/CVSImporter.ts",
         "./src/Importer/ExcelImporter.ts",
+        "./src/Library/ExcelHelperFunctions.ts",
+        "./src/Library/System26.ts",
         "./src/components/application/Application.ts",
         "./src/components/data-view/DataView.ts",
         "./src/components/folder/Folder.ts",
@@ -383,6 +385,7 @@
         "./src/interfaces.d.ts",
         "./src/keeper.ts",
         "./typings/es6-promise/es6-promise.d.ts",
+        "./typings/file-saver/file-saver.d.ts",
         "./typings/jquery/jquery-tests.ts",
         "./typings/jquery/jquery.d.ts",
         "./typings/rx/rx-lite.d.ts",
@@ -410,6 +413,8 @@
         "./typings/socket.io-client/legacy/socket.io-client-0.9-tests.ts",
         "./typings/socket.io-client/legacy/socket.io-client-0.9.d.ts",
         "./typings/socket.io-client/socket.io-client-tests.ts",
-        "./typings/socket.io-client/socket.io-client.d.ts"
+        "./typings/socket.io-client/socket.io-client.d.ts",
+        "./typings/xlsx/xlsx-tests.ts",
+        "./typings/xlsx/xlsx.d.ts"
     ]
 }

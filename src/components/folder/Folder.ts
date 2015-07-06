@@ -39,6 +39,22 @@ class Folder{
       this.outlet = outlet;
       this.redrawTree();
     });
+
+    var input_dom_element = document.querySelector('#theFile');
+    input_dom_element.addEventListener('change', handleFile, false);
+
+    var save_file_btn = document.querySelector("#savefile");
+    save_file_btn.addEventListener('click',handleSave,false);
+  }
+
+  //打开文件对话框
+  upfile(){
+    var elem = document.querySelector('#theFile');
+    if(elem && document.createEvent) {
+      var evt = document.createEvent("MouseEvents");
+      evt.initEvent("click", true, false);
+      elem.dispatchEvent(evt);
+    }
   }
 
   addItem(){

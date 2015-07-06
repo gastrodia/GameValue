@@ -4,7 +4,7 @@ class ExcelImporter implements Importer{
 
   importer:Importer;
 
-  constructor(importer:Importer){
+  constructor(importer?:Importer){
     this.importer = importer;
   }
   import(){

@@ -13,5 +13,6 @@ main();
 
 import CVSImporter = require('./Importer/CVSImporter');
 import ExeclImporter = require('./Importer/ExcelImporter');
-var myImporter = new ExeclImporter(new CVSImporter());
-myImporter.import();
+import ExeclExporter = require('./Exporter/ExcelExporter');
+var excelImporter = new ExeclImporter();
+var excelExporter = new ExeclExporter();
