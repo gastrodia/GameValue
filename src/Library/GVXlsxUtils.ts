@@ -116,7 +116,7 @@ class Workbook implements xlsx.IWorkBook{
 var data = null;
 var dataName = null;
 
-function read(file,callback:(data:Array<Array<any>>)=>void){
+function readFile(file,callback:(data:Array<Array<any>>)=>void){
 
   WorkBookFromFile(file,function(workbook:xlsx.IWorkBook){
     var first_sheet_name = workbook.SheetNames[0];
@@ -126,7 +126,7 @@ function read(file,callback:(data:Array<Array<any>>)=>void){
   });
 }
 
-function write(dataName,data){
+function writeFile(dataName,data){
   var worksheet = WorkSheetFromArrayOfArrays(data);
   var workbook = new Workbook();
   workbook.SheetNames.push(dataName);
@@ -138,11 +138,11 @@ function write(dataName,data){
 function handleFile(e) {
   var file = e.target.files[0];
   dataName = file.name;//简单起见，直接将fileName作为sheetName
-  read(file,function(_data){
+  readFile(file,function(_data){
     data = _data;
   })
 }
 
 function handleSave(e){
-  write(dataName,data);
+  writeFile(dataName,data);
 }

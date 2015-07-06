@@ -1,13 +1,7 @@
-interface Importer{
-  import();
+interface Array2Filter{
+  filter(array2:Array<Array<any>>):Array<Array<any>>;
 }
 
-interface Exporter{
-  export();
+interface GVComponent{
+  
 }
-
-interface Filter{
-  filter();
-}
-
- 

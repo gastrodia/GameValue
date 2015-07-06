@@ -10,9 +10,3 @@ export function main() {
 }
 
 main();
-
-import CVSImporter = require('./Importer/CVSImporter');
-import ExeclImporter = require('./Importer/ExcelImporter');
-import ExeclExporter = require('./Exporter/ExcelExporter');
-var excelImporter = new ExeclImporter();
-var excelExporter = new ExeclExporter();
